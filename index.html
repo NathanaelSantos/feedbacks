@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Feedback do Cliente</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background: #fff;
+    width: 100%;
+    max-width: 420px;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+p {
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-top: 15px;
+    display: block;
+}
+
+select, textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-top: 6px;
+    font-size: 14px;
+}
+
+textarea {
+    resize: none;
+    height: 90px;
+}
+
+.rating {
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse; /* ⭐ CORREÇÃO PRINCIPAL */
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 36px;
+    cursor: pointer;
+    color: #dcdcdc;
+    transition: color 0.2s;
+}
+
+/* Hover */
+.rating label:hover,
+.rating label:hover ~ label {
+    color: #f1c40f;
+}
+
+/* Selecionado */
+.rating input:checked ~ label {
+    color: #f1c40f;
+}
+
+
+button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 14px;
+    background: #27ae60;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1e8f4f;
+}
+
+.footer {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #95a5a6;
+    text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>💬 Sua opinião importa</h1>
+    <p>Avalie sua experiência no nosso supermercado</p>
+
+    <label>Nota geral</label>
+<div class="rating">
+    <input type="radio" name="nota" value="5" id="star5">
+    <label for="star5">★</label>
+
+    <input type="radio" name="nota" value="4" id="star4">
+    <label for="star4">★</label>
+
+    <input type="radio" name="nota" value="3" id="star3">
+    <label for="star3">★</label>
+
+    <input type="radio" name="nota" value="2" id="star2">
+    <label for="star2">★</label>
+
+    <input type="radio" name="nota" value="1" id="star1">
+    <label for="star1">★</label>
+</div>
+
+
+    <label for="setor">Setor avaliado</label>
+    <select id="setor">
+        <option>Reposição de mercadorias</option>
+        <option>Organização do mercado</option>
+        <option>Limpeza</option>
+        <option>Atendimento</option>
+        <option>Preços</option>
+    </select>
+
+    <label for="comentario">Comentário / Reclamação</label>
+    <textarea id="comentario" placeholder="Conte pra gente o que podemos melhorar..."></textarea>
+
+    <button onclick="enviarFeedback()">Enviar Feedback</button>
+
+    <div class="footer">
+        Obrigado por nos ajudar a melhorar 🙂
+    </div>
+</div>
+
+<script>
+function enviarFeedback() {
+    const nota = document.querySelector('input[name="nota"]:checked');
+    const setor = document.getElementById("setor").value;
+    const comentario = document.getElementById("comentario").value;
+
+    if (!nota) {
+        alert("Por favor, selecione uma nota.");
+        return;
+    }
+
+    const dados = new URLSearchParams();
+    dados.append("nota", nota.value);
+    dados.append("setor", setor);
+    dados.append("comentario", comentario);
+
+    fetch("https://script.google.com/macros/s/AKfycbw5brQcWcwaR5gSnnv3iQ3HKfEopsFOJ0s1DJyzfDNtlKb9142Bw1-cjLZOu4mm8iI_/exec", {
+        method: "POST",
+        mode: "no-cors",
+        body: dados
+    });
+
+    alert("Feedback enviado com sucesso! Obrigado 😊");
+
+    document.querySelectorAll('input[name="nota"]').forEach(r => r.checked = false);
+    document.getElementById("comentario").value = "";
+}
+</script>
+
+
+
+</body>
+</html>
