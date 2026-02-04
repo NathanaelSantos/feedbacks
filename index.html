@@ -162,6 +162,11 @@
             box-shadow: 0 18px 40px rgba(59, 130, 246, 0.4);
         }
 
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         /* Modal Popup */
         .modal {
             display: none;
@@ -215,6 +220,23 @@
         .modal .emoji {
             font-size: 48px;
             margin-bottom: 16px;
+        }
+
+        .new-feedback-btn {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .new-feedback-btn:hover {
+            background: #2563eb;
         }
 
         @keyframes fadeIn {
@@ -303,8 +325,9 @@
 <div id="modal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
-        <div class="emoji">❤️</div>
+        <div class="emoji">🎉</div>
         <p>Obrigado! Seu feedback foi enviado com sucesso.</p>
+        <button class="new-feedback-btn" onclick="closeModal()">Enviar outro feedback</button>
     </div>
 </div>
 
@@ -331,7 +354,7 @@ function enviarFeedback() {
     const btn = document.getElementById("submitBtn");
 
     if (!nota) {
-        alert("Selecione uma nota!");
+        alert("Por favor, selecione uma nota!");
         return;
     }
 
@@ -351,24 +374,29 @@ function enviarFeedback() {
 
     setTimeout(() => {
         document.getElementById("modal").style.display = "block";
-        btn.innerHTML = "Enviado!";
-        // Reset form
-        document.querySelectorAll('input[name="nota"]').forEach(r => r.checked = false);
-        document.getElementById("comentario").value = "";
-        document.getElementById("rating-text").textContent = "";
-        document.getElementById("rating-text").className = "";
-    }, 1200);
+    }, 1100);
 }
 
 function closeModal() {
     document.getElementById("modal").style.display = "none";
+
+    // Reset completo para permitir novo envio
+    const btn = document.getElementById("submitBtn");
+    btn.innerHTML = "Enviar Feedback";
+    btn.disabled = false;
+
+    // Limpa estrelas e texto
+    document.querySelectorAll('input[name="nota"]').forEach(r => r.checked = false);
+    document.getElementById("rating-text").textContent = "";
+    document.getElementById("rating-text").className = "";
+    document.getElementById("comentario").value = ""; // Opcional: limpa o comentário também
 }
 
-// Fecha o modal ao clicar fora do conteúdo
+// Fecha ao clicar fora do conteúdo
 window.onclick = function(event) {
     const modal = document.getElementById("modal");
-    if (event.target == modal) {
-        modal.style.display = "none";
+    if (event.target === modal) {
+        closeModal();
     }
 }
 </script>
