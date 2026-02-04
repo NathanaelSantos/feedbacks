@@ -29,11 +29,11 @@
             backdrop-filter: blur(32px);
             -webkit-backdrop-filter: blur(32px);
             width: 100%;
-            max-width: 600px; /* Maior para preencher melhor a tela */
+            max-width: 600px;
             padding: 50px 30px;
-            border-radius: 40px; /* Mais arredondado, menos "caixa" */
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); /* Sombra suave */
-            border: none; /* Sem borda visível */
+            border-radius: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border: none;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -162,16 +162,69 @@
             box-shadow: 0 18px 40px rgba(59, 130, 246, 0.4);
         }
 
-        #success {
+        /* Modal Popup */
+        .modal {
             display: none;
-            margin-top: 40px;
-            padding: 24px;
-            background: rgba(16, 185, 129, 0.2);
-            border-radius: 20px;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.4s;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 400px;
             text-align: center;
-            font-size: 18px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            position: relative;
+            animation: slideIn 0.4s;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            color: #aaa;
+            font-size: 36px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+        }
+
+        .modal p {
+            font-size: 20px;
             font-weight: 600;
             color: #065f46;
+            margin: 20px 0;
+        }
+
+        .modal .emoji {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        @keyframes slideIn {
+            from {transform: translateY(-50px); opacity: 0;}
+            to {transform: translateY(0); opacity: 1;}
         }
 
         .footer {
@@ -181,7 +234,7 @@
             font-size: 14px;
         }
 
-        /* Responsivo - no celular fica quase full-screen */
+        /* Responsivo */
         @media (max-width: 480px) {
             body { padding: 0; }
             .container {
@@ -189,13 +242,12 @@
                 border-radius: 0 0 40px 40px;
                 max-width: 100%;
                 min-height: 100vh;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
             }
-            h1 { font-size: 28px; }
-            .rating label { font-size: 48px; }
-            button { padding: 18px; font-size: 17px; }
+            .modal-content {
+                margin: 20% auto;
+                width: 95%;
+                padding: 24px;
+            }
         }
     </style>
 </head>
@@ -204,7 +256,7 @@
 <div class="container">
     <div class="header">
         <div class="emoji-title">
-            <img src="/icon.png" alt="Ícone">
+            <img src="icon.png" alt="Ícone">
         </div>
         <h1>Sua opinião faz a diferença!</h1>
         <p class="subtitle">Conte como foi sua experiência. Vamos melhorar juntos!</p>
@@ -242,15 +294,21 @@
 
     <button id="submitBtn" onclick="enviarFeedback()">Enviar Feedback</button>
 
-    <div id="success">Obrigado! Seu feedback foi enviado com sucesso ❤️</div>
-
     <div class="footer">
         Muito obrigado por nos ajudar a melhorar!
     </div>
 </div>
 
+<!-- Modal Popup -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="emoji">❤️</div>
+        <p>Obrigado! Seu feedback foi enviado com sucesso.</p>
+    </div>
+</div>
+
 <script>
-// (funções updateRating e enviarFeedback iguais às anteriores, só ajustei o success)
 function updateRating(value) {
     const textEl = document.getElementById('rating-text');
     const ratings = {
@@ -280,7 +338,6 @@ function enviarFeedback() {
     btn.innerHTML = "Enviando...";
     btn.disabled = true;
 
-    // Seu fetch aqui (igual antes)
     const dados = new URLSearchParams();
     dados.append("nota", nota.value);
     dados.append("setor", setor);
@@ -293,17 +350,28 @@ function enviarFeedback() {
     }).catch(() => {});
 
     setTimeout(() => {
-        document.getElementById("success").style.display = "block";
+        document.getElementById("modal").style.display = "block";
         btn.innerHTML = "Enviado!";
-        // Reset
+        // Reset form
         document.querySelectorAll('input[name="nota"]').forEach(r => r.checked = false);
         document.getElementById("comentario").value = "";
         document.getElementById("rating-text").textContent = "";
         document.getElementById("rating-text").className = "";
     }, 1200);
 }
+
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+}
+
+// Fecha o modal ao clicar fora do conteúdo
+window.onclick = function(event) {
+    const modal = document.getElementById("modal");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 </script>
 
 </body>
 </html>
-
