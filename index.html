@@ -1,176 +1,286 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Feedback do Cliente</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback do Cliente - Supermercado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background: linear-gradient(135deg, #2ecc71, #27ae60);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top center, #e0f2fe 0%, #bfdbfe 50%, #93c5fd 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 10px;
+            color: #1f2937;
+        }
 
-.container {
-    background: #fff;
-    width: 100%;
-    max-width: 420px;
-    padding: 25px;
-    border-radius: 18px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-}
+        .container {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            width: 100%;
+            max-width: 600px; /* Maior para preencher melhor a tela */
+            padding: 50px 30px;
+            border-radius: 40px; /* Mais arredondado, menos "caixa" */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); /* Sombra suave */
+            border: none; /* Sem borda visível */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-h1 {
-    text-align: center;
-    color: #2c3e50;
-    margin-bottom: 5px;
-}
+        .container:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+        }
 
-p {
-    text-align: center;
-    color: #7f8c8d;
-    font-size: 14px;
-    margin-bottom: 20px;
-}
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
 
-label {
-    font-weight: 600;
-    color: #2c3e50;
-    margin-top: 15px;
-    display: block;
-}
+        .emoji-title img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
 
-select, textarea {
-    width: 100%;
-    padding: 12px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    margin-top: 6px;
-    font-size: 14px;
-}
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 12px;
+        }
 
-textarea {
-    resize: none;
-    height: 90px;
-}
+        .subtitle {
+            font-size: 16px;
+            color: #4b5563;
+        }
 
-.rating {
-    display: flex;
-    justify-content: center;
-    flex-direction: row-reverse; /* ⭐ CORREÇÃO PRINCIPAL */
-    gap: 6px;
-    margin-top: 10px;
-}
+        label {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 12px;
+        }
 
-.rating input {
-    display: none;
-}
+        .rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0 16px;
+        }
 
-.rating label {
-    font-size: 36px;
-    cursor: pointer;
-    color: #dcdcdc;
-    transition: color 0.2s;
-}
+        .rating input {
+            display: none;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
 
-/* Hover */
-.rating label:hover,
-.rating label:hover ~ label {
-    color: #f1c40f;
-}
+        .rating label {
+            font-size: 56px;
+            cursor: pointer;
+            color: #e5e7eb;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
 
-/* Selecionado */
-.rating input:checked ~ label {
-    color: #f1c40f;
-}
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: #fbbf24;
+            transform: scale(1.3) rotate(12deg);
+        }
 
+        .rating input:checked ~ label {
+            color: #fbbf24;
+        }
 
-button {
-    width: 100%;
-    margin-top: 25px;
-    padding: 14px;
-    background: #27ae60;
-    border: none;
-    border-radius: 12px;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-}
+        #rating-text {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            min-height: 30px;
+        }
 
-button:hover {
-    background: #1e8f4f;
-}
+        .ruim { color: #ef4444; }
+        .regular { color: #f59e0b; }
+        .bom { color: #fbbf24; }
+        .muito-bom { color: #34d399; }
+        .excelente { color: #10b981; }
 
-.footer {
-    margin-top: 15px;
-    font-size: 12px;
-    color: #95a5a6;
-    text-align: center;
-}
-</style>
+        select, textarea {
+            width: 100%;
+            padding: 18px 20px;
+            border: 1.5px solid #d1d5db;
+            border-radius: 20px;
+            font-size: 16px;
+            background: rgba(249, 250, 251, 0.95);
+            transition: all 0.3s ease;
+            margin-bottom: 32px;
+        }
+
+        select:focus, textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+            outline: none;
+            background: white;
+        }
+
+        textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        #success {
+            display: none;
+            margin-top: 40px;
+            padding: 24px;
+            background: rgba(16, 185, 129, 0.2);
+            border-radius: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #065f46;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* Responsivo - no celular fica quase full-screen */
+        @media (max-width: 480px) {
+            body { padding: 0; }
+            .container {
+                padding: 40px 20px;
+                border-radius: 0 0 40px 40px;
+                max-width: 100%;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            h1 { font-size: 28px; }
+            .rating label { font-size: 48px; }
+            button { padding: 18px; font-size: 17px; }
+        }
+    </style>
 </head>
-
 <body>
 
 <div class="container">
-    <h1>💬 Sua opinião importa</h1>
-    <p>Avalie sua experiência no nosso supermercado</p>
+    <div class="header">
+        <div class="emoji-title">
+            <img src="icon.png" alt="Ícone">
+        </div>
+        <h1>Sua opinião faz a diferença!</h1>
+        <p class="subtitle">Conte como foi sua experiência. Vamos melhorar juntos!</p>
+    </div>
 
     <label>Nota geral</label>
-<div class="rating">
-    <input type="radio" name="nota" value="5" id="star5">
-    <label for="star5">★</label>
-
-    <input type="radio" name="nota" value="4" id="star4">
-    <label for="star4">★</label>
-
-    <input type="radio" name="nota" value="3" id="star3">
-    <label for="star3">★</label>
-
-    <input type="radio" name="nota" value="2" id="star2">
-    <label for="star2">★</label>
-
-    <input type="radio" name="nota" value="1" id="star1">
-    <label for="star1">★</label>
-</div>
-
+    <div class="rating">
+        <input type="radio" name="nota" value="5" id="star5" onclick="updateRating(5)">
+        <label for="star5">★</label>
+        <input type="radio" name="nota" value="4" id="star4" onclick="updateRating(4)">
+        <label for="star4">★</label>
+        <input type="radio" name="nota" value="3" id="star3" onclick="updateRating(3)">
+        <label for="star3">★</label>
+        <input type="radio" name="nota" value="2" id="star2" onclick="updateRating(2)">
+        <label for="star2">★</label>
+        <input type="radio" name="nota" value="1" id="star1" onclick="updateRating(1)">
+        <label for="star1">★</label>
+    </div>
+    <div id="rating-text"></div>
 
     <label for="setor">Setor avaliado</label>
     <select id="setor">
         <option>Reposição de mercadorias</option>
         <option>Organização do mercado</option>
         <option>Limpeza</option>
-        <option>Atendimento</option>
-        <option>Preços</option>
+        <option>Atendimento no caixa</option>
+        <option>Atendimento geral</option>
+        <option>Preços e promoções</option>
+        <option>Variedade de produtos</option>
+        <option>Outro</option>
     </select>
 
-    <label for="comentario">Comentário / Reclamação</label>
-    <textarea id="comentario" placeholder="Conte pra gente o que podemos melhorar..."></textarea>
+    <label for="comentario">Comentário (opcional)</label>
+    <textarea id="comentario" placeholder="O que achou? O que podemos melhorar?... 😊"></textarea>
 
-    <button onclick="enviarFeedback()">Enviar Feedback</button>
+    <button id="submitBtn" onclick="enviarFeedback()">Enviar Feedback</button>
+
+    <div id="success">Obrigado! Seu feedback foi enviado com sucesso ❤️</div>
 
     <div class="footer">
-        Obrigado por nos ajudar a melhorar 🙂
+        Muito obrigado por nos ajudar a melhorar!
     </div>
 </div>
 
 <script>
+// (funções updateRating e enviarFeedback iguais às anteriores, só ajustei o success)
+function updateRating(value) {
+    const textEl = document.getElementById('rating-text');
+    const ratings = {
+        1: { text: 'Ruim 😞', class: 'ruim' },
+        2: { text: 'Regular 😕', class: 'regular' },
+        3: { text: 'Bom 👍', class: 'bom' },
+        4: { text: 'Muito bom 😊', class: 'muito-bom' },
+        5: { text: 'Excelente 🎉', class: 'excelente' }
+    };
+    if (ratings[value]) {
+        textEl.textContent = ratings[value].text;
+        textEl.className = ratings[value].class;
+    }
+}
+
 function enviarFeedback() {
     const nota = document.querySelector('input[name="nota"]:checked');
     const setor = document.getElementById("setor").value;
-    const comentario = document.getElementById("comentario").value;
+    const comentario = document.getElementById("comentario").value.trim();
+    const btn = document.getElementById("submitBtn");
 
     if (!nota) {
-        alert("Por favor, selecione uma nota.");
+        alert("Selecione uma nota!");
         return;
     }
 
+    btn.innerHTML = "Enviando...";
+    btn.disabled = true;
+
+    // Seu fetch aqui (igual antes)
     const dados = new URLSearchParams();
     dados.append("nota", nota.value);
     dados.append("setor", setor);
@@ -180,16 +290,19 @@ function enviarFeedback() {
         method: "POST",
         mode: "no-cors",
         body: dados
-    });
+    }).catch(() => {});
 
-    alert("Feedback enviado com sucesso! Obrigado 😊");
-
-    document.querySelectorAll('input[name="nota"]').forEach(r => r.checked = false);
-    document.getElementById("comentario").value = "";
+    setTimeout(() => {
+        document.getElementById("success").style.display = "block";
+        btn.innerHTML = "Enviado!";
+        // Reset
+        document.querySelectorAll('input[name="nota"]').forEach(r => r.checked = false);
+        document.getElementById("comentario").value = "";
+        document.getElementById("rating-text").textContent = "";
+        document.getElementById("rating-text").className = "";
+    }, 1200);
 }
 </script>
-
-
 
 </body>
 </html>
