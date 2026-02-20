@@ -5,178 +5,216 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Feedback - Supermercado Nunes Peixoto</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-    font-family:'Inter',sans-serif;
-    background:linear-gradient(135deg,#c40000,#e30613);
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #c40000, #e30613);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 10px;
+    color: #1f2937;
 }
 
-.container{
-    background:#ffffff;
-    width:100%;
-    max-width:600px;
-    padding:50px 30px;
-    border-radius:30px;
-    box-shadow:0 20px 60px rgba(0,0,0,0.25);
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    width: 100%;
+    max-width: 600px;
+    padding: 50px 30px;
+    border-radius: 40px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.header{
-    text-align:center;
-    margin-bottom:40px;
+.container:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
 }
 
-.logo{
-    width:220px;
-    margin-bottom:25px;
+.header {
+    text-align: center;
+    margin-bottom: 40px;
 }
 
-h1{
-    font-size:28px;
-    font-weight:800;
-    color:#c40000;
-    margin-bottom:10px;
+.emoji-title img {
+    width: 220px;
+    height: auto;
+    margin-bottom: 25px;
 }
 
-.subtitle{
-    color:#555;
-    font-size:15px;
+h1 {
+    font-size: 30px;
+    font-weight: 800;
+    color: #c40000;
+    margin-bottom: 12px;
 }
 
-label{
-    display:block;
-    font-weight:600;
-    margin-bottom:10px;
-    color:#333;
+.subtitle {
+    font-size: 16px;
+    color: #555;
 }
 
-.rating{
-    display:flex;
-    flex-direction:row-reverse;
-    justify-content:center;
-    gap:12px;
-    margin:20px 0 20px;
+label {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
 }
 
-.rating input{
-    display:none;
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0 16px;
 }
 
-.rating label{
-    font-size:50px;
-    cursor:pointer;
-    color:#ddd;
-    transition:0.3s;
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 56px;
+    cursor: pointer;
+    color: #e5e7eb;
+    transition: 0.3s;
 }
 
 .rating label:hover,
-.rating label:hover ~ label{
-    color:#ffd100;
-    transform:scale(1.2);
+.rating label:hover ~ label {
+    color: #ffd100;
+    transform: scale(1.2);
 }
 
-.rating input:checked ~ label{
-    color:#ffd100;
+.rating input:checked ~ label {
+    color: #ffd100;
 }
 
-#rating-text{
-    text-align:center;
-    font-weight:700;
-    font-size:18px;
-    margin-bottom:30px;
+#rating-text {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    min-height: 30px;
 }
 
-select,textarea{
-    width:100%;
-    padding:16px;
-    border-radius:12px;
-    border:1px solid #ddd;
-    margin-bottom:25px;
-    font-size:15px;
+.ruim { color: #c40000; }
+.regular { color: #ff9800; }
+.bom { color: #ffd100; }
+.muito-bom { color: #28a745; }
+.excelente { color: #008000; }
+
+select, textarea {
+    width: 100%;
+    padding: 18px 20px;
+    border: 1.5px solid #ddd;
+    border-radius: 20px;
+    font-size: 16px;
+    margin-bottom: 32px;
+    transition: 0.3s;
 }
 
-select:focus,textarea:focus{
-    border-color:#c40000;
-    outline:none;
+select:focus, textarea:focus {
+    border-color: #c40000;
+    box-shadow: 0 0 0 4px rgba(196, 0, 0, 0.2);
+    outline: none;
 }
 
-textarea{
-    min-height:120px;
+textarea {
+    min-height: 140px;
+    resize: vertical;
 }
 
-button{
-    width:100%;
-    padding:18px;
-    background:#ffd100;
-    color:#c40000;
-    font-weight:800;
-    border:none;
-    border-radius:15px;
-    font-size:16px;
-    cursor:pointer;
-    transition:0.3s;
+button {
+    width: 100%;
+    padding: 20px;
+    background: #ffd100;
+    color: #c40000;
+    font-size: 18px;
+    font-weight: 800;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-button:hover{
-    background:#ffcc00;
-    transform:translateY(-3px);
+button:hover {
+    background: #ffcc00;
+    transform: translateY(-4px);
 }
 
-.footer{
-    text-align:center;
-    margin-top:30px;
-    font-size:13px;
-    color:#777;
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
-/* MODAL */
-
-.modal{
-    display:none;
-    position:fixed;
-    left:0;
-    top:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.6);
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
 }
 
-.modal-content{
-    background:white;
-    padding:30px;
-    border-radius:20px;
-    text-align:center;
-    width:90%;
-    max-width:400px;
-    margin:15% auto;
+.modal-content {
+    background: white;
+    margin: 15% auto;
+    padding: 30px;
+    border-radius: 24px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
 }
 
-.modal-content p{
-    font-size:18px;
-    font-weight:600;
-    color:#c40000;
+.close {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 36px;
+    cursor: pointer;
 }
 
-.new-feedback-btn{
-    margin-top:15px;
-    padding:12px 20px;
-    background:#c40000;
-    color:white;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
+.modal p {
+    font-size: 20px;
+    font-weight: 600;
+    color: #c40000;
+    margin: 20px 0;
+}
+
+.new-feedback-btn {
+    margin-top: 20px;
+    padding: 12px 24px;
+    background: #c40000;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.new-feedback-btn:hover {
+    background: #a80000;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    color: #777;
+    font-size: 14px;
 }
 </style>
 </head>
@@ -185,9 +223,11 @@ button:hover{
 
 <div class="container">
     <div class="header">
-        <img src="imgs/logo-nunes.png" class="logo">
-        <h1>Sua opinião é muito importante!</h1>
-        <p class="subtitle">Ajude o Supermercado Nunes Peixoto a melhorar ainda mais.</p>
+        <div class="emoji-title">
+            <img src="logo-nunes.png" alt="Supermercado Nunes Peixoto">
+        </div>
+        <h1>Sua opinião faz a diferença!</h1>
+        <p class="subtitle">Conte como foi sua experiência no Supermercado Nunes Peixoto.</p>
     </div>
 
     <label>Nota geral</label>
@@ -206,22 +246,23 @@ button:hover{
 
     <div id="rating-text"></div>
 
-    <label>Setor avaliado</label>
+    <label for="setor">Setor avaliado</label>
     <select id="setor">
         <option>Apresentação</option>
         <option>Reposição de mercadorias</option>
-        <option>Organização</option>
+        <option>Organização do mercado</option>
         <option>Limpeza</option>
         <option>Atendimento no caixa</option>
+        <option>Atendimento geral</option>
         <option>Preços e promoções</option>
         <option>Variedade de produtos</option>
         <option>Outro</option>
     </select>
 
-    <label>Comentário (opcional)</label>
-    <textarea id="comentario" placeholder="Conte como foi sua experiência..."></textarea>
+    <label for="comentario">Comentário (opcional)</label>
+    <textarea id="comentario" placeholder="O que achou? O que podemos melhorar? 😊"></textarea>
 
-    <button onclick="enviarFeedback()">Enviar Feedback</button>
+    <button id="submitBtn" onclick="enviarFeedback()">Enviar Feedback</button>
 
     <div class="footer">
         © 2026 Supermercado Nunes Peixoto
@@ -230,34 +271,77 @@ button:hover{
 
 <div id="modal" class="modal">
     <div class="modal-content">
-        <p>🎉 Obrigado! Seu feedback foi enviado com sucesso.</p>
-        <button class="new-feedback-btn" onclick="closeModal()">Enviar outro</button>
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="emoji">🎉</div>
+        <p>Obrigado! Seu feedback foi enviado com sucesso.</p>
+        <button class="new-feedback-btn" onclick="closeModal()">Enviar outro feedback</button>
     </div>
 </div>
 
 <script>
-function updateRating(value){
-    const text = document.getElementById("rating-text");
-    const map={
-        1:"Ruim 😞",
-        2:"Regular 😐",
-        3:"Bom 👍",
-        4:"Muito bom 😊",
-        5:"Excelente 🎉"
+function updateRating(value) {
+    const textEl = document.getElementById('rating-text');
+    const ratings = {
+        1: { text: 'Ruim 😞', class: 'ruim' },
+        2: { text: 'Regular 😕', class: 'regular' },
+        3: { text: 'Bom 👍', class: 'bom' },
+        4: { text: 'Muito bom 😊', class: 'muito-bom' },
+        5: { text: 'Excelente 🎉', class: 'excelente' }
     };
-    text.innerText=map[value];
+    if (ratings[value]) {
+        textEl.textContent = ratings[value].text;
+        textEl.className = ratings[value].class;
+    }
 }
 
-function enviarFeedback(){
-    document.getElementById("modal").style.display="block";
+function enviarFeedback() {
+    const nota = document.querySelector('input[name="nota"]:checked');
+    const setor = document.getElementById("setor").value;
+    const comentario = document.getElementById("comentario").value.trim();
+    const btn = document.getElementById("submitBtn");
+
+    if (!nota) {
+        alert("Por favor, selecione uma nota!");
+        return;
+    }
+
+    btn.innerHTML = "Enviando...";
+    btn.disabled = true;
+
+    const dados = new URLSearchParams();
+    dados.append("nota", nota.value);
+    dados.append("setor", setor);
+    dados.append("comentario", comentario);
+
+    fetch("https://script.google.com/macros/s/AKfycbw5brQcWcwaR5gSnnv3iQ3HKfEopsFOJ0s1DJyzfDNtlKb9142Bw1-cjLZOu4mm8iI_/exec", {
+        method: "POST",
+        mode: "no-cors",
+        body: dados
+    }).catch(() => {});
+
+    setTimeout(() => {
+        document.getElementById("modal").style.display = "block";
+    }, 1100);
 }
 
-function closeModal(){
-    document.getElementById("modal").style.display="none";
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+    const btn = document.getElementById("submitBtn");
+    btn.innerHTML = "Enviar Feedback";
+    btn.disabled = false;
+    document.querySelectorAll('input[name="nota"]').forEach(r => r.checked = false);
+    document.getElementById("rating-text").textContent = "";
+    document.getElementById("rating-text").className = "";
+    document.getElementById("comentario").value = "";
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById("modal");
+    if (event.target === modal) {
+        closeModal();
+    }
 }
 </script>
 
 </body>
 </html>
-
-
